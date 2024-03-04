@@ -1,0 +1,14 @@
+Processing GCA_035770615.1.fa
+path to file is /mnt/projects/users/aalayeva/genomics/raw/GCA_035770615.1.fa
+File size is 1.5G
+GCA_035770615.1.fa amount of lines: 30825768
+GCA_035770615.1.fa amount of headers: 354
+GCA_035770615.1.fa header information: CM069555.1
+
+Processing GCF_035770615.1_bMelMel2.pri_genomic.fna
+path to file is /mnt/projects/users/aalayeva/genomics/raw/GCF_035770615.1_bMelMel2.pri_genomic.fna
+File size is 1.5G
+GCF_035770615.1_bMelMel2.pri_genomic.fna amount of lines: 19266095
+GCF_035770615.1_bMelMel2.pri_genomic.fna amount of headers: 353
+GCF_035770615.1_bMelMel2.pri_genomic.fna header information: NC_086194.1 Melospiza melodia melodia isolate bMelMel2 chromosome 1, bMelMel2.pri, whole genome shotgun sequence
+
