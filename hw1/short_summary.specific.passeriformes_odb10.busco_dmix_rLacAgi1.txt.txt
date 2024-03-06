@@ -1,0 +1,30 @@
+# BUSCO version is: 5.6.1 
+# The lineage dataset is: passeriformes_odb10 (Creation date: 2024-01-08, number of genomes: 15, number of BUSCOs: 10844)
+# Summarized benchmarking in BUSCO notation for file /mnt/projects/users/aalayeva/genomics/raw/GCA_035770615.1.fa
+# BUSCO was run in mode: euk_genome_met
+# Gene predictor used: metaeuk
+
+	***** Results: *****
+
+	C:95.9%[S:95.4%,D:0.5%],F:0.7%,M:3.4%,n:10844	   
+	10401	Complete BUSCOs (C)			   
+	10343	Complete and single-copy BUSCOs (S)	   
+	58	Complete and duplicated BUSCOs (D)	   
+	74	Fragmented BUSCOs (F)			   
+	369	Missing BUSCOs (M)			   
+	10844	Total BUSCO groups searched		   
+
+Assembly Statistics:
+	354	Number of scaffolds
+	653	Number of contigs
+	1541261971	Total length
+	0.070%	Percent gaps
+	77 MB	Scaffold N50
+	19 MB	Contigs N50
+
+
+Dependencies and versions:
+	hmmsearch: 3.1
+	bbtools: 39.01
+	metaeuk: 6.a5d39d9
+	busco: 5.6.1
