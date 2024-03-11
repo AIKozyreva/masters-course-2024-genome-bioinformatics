@@ -35,7 +35,7 @@ Current channels:
 ```
 !sudo apt install ncbi-tools-bin
 !install ncbi-tools-bin
-/bin/bash: line 1: ncbi-tools-bin: command not found
+_/bin/bash: line 1: ncbi-tools-bin: command not found_
 ```
 **<Так в итоге рабочая схема установки на сервер WindowMasker>**__
 1. Создаём директорию, куда положим windowmasker и переходим в неё
@@ -48,24 +48,45 @@ cd ./windowmasker
 wget ftp://ftp.ncbi.nlm.nih.gov/pub/agarwala/windowmasker/windowmasker 
 chmod +x windowmasker
 ./windowmasker -h
-USAGE
+_USAGE
   windowmasker [-h] [-help] [-xmlhelp] [-ustat unit_counts]
     [-in input_file_name] [-out output_file_name] [-checkdup check_duplicates]
-    [-fa_list input_is_a_list] [-mem available_memory] [-unit unit_length] 
+    [-fa_list input_is_a_list] [-mem available_memory] [-unit unit_length] _
 ```
 
 **<Рабочая схема установки на сервер dustmasker>**__
 ```
 conda install blast=2.14.1
 dustmasker -h                                                                                                                          
-USAGE                                                                                                                                                                    
+_USAGE                                                                                                                                                                    
   dustmasker [-h] [-help] [-xmlhelp] [-in input_file_name]                                                                                                               
     [-out output_file_name] [-window window_size] [-level level]                                                                                                         
     [-linker linker] [-infmt input_format] [-outfmt output_format]                                                                                                       
     [-parse_seqids] [-hard_masking] [-version-full] [-version-full-xml]                                                                                                  
-    [-version-full-json]                                                                                                                                                                                    
+    [-version-full-json]   _                                                                                                                                                                                 
 ```
 
-#### 
+#### Tandem Repeats Finder (TRF)
+```
+conda install -c bioconda trf
+trf -h
+_Please use: trf File Match Mismatch Delta PM PI Minscore MaxPeriod [options]_
+```
+#### RepeatModeler and RepeatMasker
+RepeatModeler and RepeatMasker can be installed together as they are often used in conjunction. Ensure to install dependencies like rmblast
+```
+conda install -c bioconda rmblast
+conda install -c bioconda repeatmodeler repeatmasker
+RepeatMasker -h
+   RepeatMasker - Mask repetitive DNA
+_SYNOPSIS
+      RepeatMasker [-options] <seqfiles(s) in fasta format>_
+RepeatModeler -h
+_SYNOPSIS
+      RepeatModeler [-options] -database <XDF Database>_
+```
+FINALLY!!!!!!!!!
 
+### Step 3. Running Repeats Masking Tools
 
+#### WindowMasker and DUST
