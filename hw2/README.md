@@ -105,9 +105,26 @@ trf /mnt/projects/users/aalayeva/genomics/raw/NC_086226.1.fasta 2 7 7 80 10 50 5
 Output files are: trf_results.txt; NC_086226.1.fasta.2.7.7.80.10.50.500.dat   
 
 #### RepeatModeler and RepeatMasker
+
+Repeat Modeler - ...
 ```
-
-
+BuildDatabase -name vorobey_full_repeat_db -engine ncbi /mnt/projects/users/aalayeva/genomics/raw/GCF_035770615.1_bMelMel2.pri_genomic.fna
+RepeatModeler -database vorobey_full_repeat_db -threads 16 -LTRStruct
+_  <Using output directory = /mnt/projects/users/aalayeva/genomics/repeats/RM_2323907.TueMar121008052024
+  Search Engine = rmblast 2.14.1+
+  Threads = 16
+  Dependencies: TRF 4.09, RECON , RepeatScout 1.0.6, RepeatMasker 4.1.5
+  LTR Structural Analysis: Enabled (GenomeTools 1.6.4, LTR_Retriever, Ninja 0.97-cluster_only, MAFFT 7.520, CD-HIT 4.8.1 )
+  Random Number Seed: 1710238085
+  Database = /mnt/projects/users/aalayeva/genomics/repeats/vorobey_full_repeat_db .
+  - Sequences = 353
+  - Bases = 1541245192
+  - N50 = 82773674>_
 ```
-
+Repeat Masker - ... . There are two variants of command. Firs one with custom database, made earlier by RepeatModeler, second one is with one of default databases, that one was made for all birds.
+```
+1) RepeatMasker -lib /mnt/projects/users/aalayeva/genomics/repeats/RM_2323907.TueMar121008052024/consensi.fa -pa 4 -s -xsmall -e ncbi /mnt/projects/users/aalayeva/genomics/raw/NC_086226.1.fa
+2) RepeatMasker -species Birds -pa 4 -q -xsmall -e ncbi /mnt/projects/users/aalayeva/genomics/raw/NC_086226.1.fa
+```
+Output files are:
 
