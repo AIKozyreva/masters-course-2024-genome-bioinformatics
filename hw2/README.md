@@ -85,6 +85,9 @@ FINALLY!!!!!!!!!
 ### Step 3. Running Repeats Masking Tools
 
 #### WindowMasker and DUST
+WindowMasker - is a program that identifies and masks out highly repetitive DNA sequences and DNA sequences with low complexity in a genome using only the sequence of the genome itself.
+
+Info: https://github.com/hydrachallenge/main/blob/master/manuals/README.windowmasker 
 ```
 sed -i 's/\[.*\]//g' /mnt/projects/users/aalayeva/genomics/raw/NC_086226.1.fa
 windowmasker -in /mnt/projects/users/aalayeva/genomics/raw/GCA_035770615.1.fa -mk_counts -out ./windowMasker_genome.counts
@@ -92,6 +95,9 @@ windowmasker -in /mnt/projects/users/aalayeva/genomics/raw/GCA_035770615.1.fa -u
 ```
 Output files are: windowmasker_results.txt and windowMasker_genome.counts
 
+DustMasker is a program that identifies and masks out low complexity parts of a genome using a new and improved DUST algorithm. The main advantages of the new algorithm are symmetry with respect to taking reverse complements, context insensitivity, and much better performance
+
+Info: https://www.ncbi.nlm.nih.gov/IEB/ToolBox/CPP_DOC/lxr/source/src/app/dustmasker/README 
 ```
 dustmasker -in /mnt/projects/users/aalayeva/genomics/raw/NC_086226.1.fasta -out /mnt/projects/users/aalayeva/genomics/repeats/dustmasker_result.fasta -outfmt fasta -parse_seqids
 dustmasker -in /mnt/projects/users/aalayeva/genomics/raw/NC_086226.1.fasta -out /mnt/projects/users/aalayeva/genomics/repeats/dustmasker_res_infoasn1.txt -outfmt maskinfo_asn1_text
@@ -99,6 +105,9 @@ dustmasker -in /mnt/projects/users/aalayeva/genomics/raw/NC_086226.1.fasta -out 
 Output files are: dustmasker_res_infoasn1.txt and dustmasker_result.fasta
 
 #### Tandem Repeats Finder (TRF)
+TRF - is a program to locate and display tandem repeats in DNA sequences. In order to use the program, the user submits a sequence in FASTA format. There is no need to specify the pattern, the size of the pattern or any other parameter. The output consists of two files: a repeat table file and an alignment file. The repeat table contains information about each repeat, including its location, size, number of copies and nucleotide content. Repeats with pattern size in the range from 1 to 2000 bases are detected.
+
+Info: https://tandem.bu.edu/trf/definitions
 ```
 trf /mnt/projects/users/aalayeva/genomics/raw/NC_086226.1.fasta 2 7 7 80 10 50 500 -d -h > /mnt/projects/users/aalayeva/genomics/repeats/trf_results.txt
 ```
@@ -106,7 +115,9 @@ Output files are: trf_results.txt; NC_086226.1.fasta.2.7.7.80.10.50.500.dat
 
 #### RepeatModeler and RepeatMasker
 
-Repeat Modeler - ...
+Repeat Modeler - is a de novo transposable element (TE) family identification and modeling package. At the heart of RepeatModeler are three de-novo repeat finding programs ( RECON, RepeatScout and LtrHarvest/Ltr_retriever ) which employ complementary computational methods for identifying repeat element boundaries and family relationships from sequence data. 
+
+Info: https://www.repeatmasker.org/RepeatModeler/ 
 ```
 BuildDatabase -name vorobey_full_repeat_db -engine ncbi /mnt/projects/users/aalayeva/genomics/raw/GCF_035770615.1_bMelMel2.pri_genomic.fna
 RepeatModeler -database vorobey_full_repeat_db -threads 16 -LTRStruct
@@ -121,10 +132,32 @@ _  <Using output directory = /mnt/projects/users/aalayeva/genomics/repeats/RM_23
   - Bases = 1541245192
   - N50 = 82773674>_
 ```
-Repeat Masker - ... . There are two variants of command. Firs one with custom database, made earlier by RepeatModeler, second one is with one of default databases, that one was made for all birds.
+Repeat Masker - is a program that screens DNA sequences for interspersed repeats and low complexity DNA sequences. The output of the program is a detailed annotation of the repeats that are present in the query sequence as well as a modified version of the query sequence in which all the annotated repeats have been masked (default: replaced by Ns). There are two variants of command. Firsе one with custom database, made earlier by RepeatModeler, second one is with one of default databases, that was made for all birds.
+
+Info: https://www.repeatmasker.org/webrepeatmaskerhelp.html 
 ```
 1) RepeatMasker -lib /mnt/projects/users/aalayeva/genomics/repeats/RM_2323907.TueMar121008052024/consensi.fa -pa 4 -s -xsmall -e ncbi /mnt/projects/users/aalayeva/genomics/raw/NC_086226.1.fa
 2) RepeatMasker -species Birds -pa 4 -q -xsmall -e ncbi /mnt/projects/users/aalayeva/genomics/raw/NC_086226.1.fa
 ```
-Output files are:
+Output files are: for variant 1) repeatmasker.table(1).txt, for var 2) repeatmasker.table.txt
+
+For the second command i have got the better result: more places were maskered and programm identified more types of masked sequences. Probably, the reason of this were the termination of Repeat Modeler database building step. Or maybe the reason what in second variant Repeat Masker used default database, which includes information about many types of sequences of many Birds, while my custom database was based only on my one bird - Melospiza melodia - genome data.
+
+### Step 4. Interpretation of Outputs
+
+#### Table with output's fields comparision
+
+| Tool/Fields | Window Masker | Tandem Repeats Finder | dust masker | Repeat Modeler | Repeat Masker |
+| :---------- | :-----------: | :-------------------- | :---------- | :------------- | :------------ |
+|    Aim      |   True23.99   |     SQL Hat           |     True    |      23.99     |     23.99     |
+|      1      |   True23.99   |     Codecademy Tee    |     False   |      23.99     |     23.99     |
+|      2      |  False19.99   |     Codecademy Hoodie |     False   |      23.99     |     23.99     |
+|      3      |  False42.99   |     Item              |    In Stock |      23.99     |     23.99     |
+
+
+
+
+### Step 5. Discussion
+
+
 
