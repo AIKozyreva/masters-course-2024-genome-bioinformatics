@@ -2,6 +2,28 @@
 
 Сырые данные для работы: Melospiza melodia melodia isolate bMelMel2 chromosome Z - https://www.ncbi.nlm.nih.gov/nuccore/NC_086226.1/
 
+## Task 0: Theory about genome-repeats
+
+**Tandem Repeats:**
+Definition: Tandem repeats are sequences of DNA where identical or nearly identical nucleotide motifs are repeated successively and appear adjacent to each other along the DNA strand.
+Organization: The repeated units are typically clustered together in a head-to-tail fashion.
+Examples: Microsatellites or simple sequence repeats (SSRs), minisatellites, and variable number tandem repeats (VNTRs) are common examples of tandem repeats.
+
+**Interspersed Repeats:**
+Definition: Interspersed repeats are sequences that are scattered throughout the genome rather than being clustered together.
+Organization: Unlike tandem repeats, interspersed repeats are not organized in a head-to-tail fashion but are dispersed at various locations.
+Examples: Transposons, retrotransposons, and other mobile genetic elements fall under interspersed repeats.
+
+**Low-Complexity Sequences:**
+Definition: Low-complexity sequences are regions in DNA that consist of simple and repetitive motifs but may not necessarily be organized in tandem or interspersed patterns.
+Organization: These repeats can occur in various arrangements, and their organization may not follow a specific pattern.
+Examples: Regions with homopolymeric runs, such as poly-A or poly-T stretches, are examples of low-complexity sequences.
+
+**Satellite DNA:**
+Definition: Satellite DNA consists of highly repetitive sequences that are often organized into longer arrays, forming distinct bands during centrifugation.
+Organization: Satellite DNA can be tandemly arranged (forming satellites) or interspersed in certain regions.
+Examples: Centromeric and telomeric repeats are types of satellite DNA.
+
 ## Task 1: Installing Repeats Masking Tools. 
 Objective: Install WindowMasker, DUST, TRF, RepeatModeler, and RepeatMasker using Conda to familiarize yourself with software installation and environment management.
 
@@ -78,7 +100,7 @@ _RepeatModeler [-options] -database <XDF Database>_
 ```
 _**FINALLY!!!!!!!!!**_
 
-### Step 3. Running Repeats Masking Tools
+### Task 3. Running Repeats Masking Tools
 
 #### WindowMasker and DUST
 WindowMasker - is a program that identifies and masks out highly repetitive DNA sequences and DNA sequences with low complexity in a genome using only the sequence of the genome itself.
@@ -139,7 +161,7 @@ Output files are: for variant 1) repeatmasker.table(1).txt, for var 2) repeatmas
 
 For the second command i have got the better result: more places were maskered and programm identified more types of masked sequences. Probably, the reason of this were the termination of Repeat Modeler database building step. Or maybe the reason what in second variant Repeat Masker used default database, which includes information about many types of sequences of many Birds, while my custom database was based only on my one bird - Melospiza melodia - genome data.
 
-### Step 4. Interpretation of Outputs
+### Task 4. Interpretation of Outputs
 
 #### dustmasker
 - _'fasta' - genome sequences with masked subseq-s_
@@ -230,7 +252,51 @@ bases masked:    2933633 bp ( 7.75 %)
 | columns     | coord of masked groups/gene | pattern, sequence, coord of repeat | coord of masked groups/gene | db + repeats_seq-s | pattern, type, sequence, coord, stats of repeat |
 
 
-### Step 5. Discussion
+### Task 5. Discussion
 
+**Why we have to mask something?**
 Repeats masking is a crucial step in genome analysis pipelines due to the huge presence of repetitive elements within eukaryotic genomes. These repeats, such as transposons and retrotransposons or ShortTandemRep, can significantly compromise the accuracy of downstream analyses because failure to account for repetitive elements can lead to the algorithms false identification of multiple gene's copies or merge distinct genes due to shared repetitive sequences. This inaccuracy extends to regulatory regions, where unmasked repeats may corrupt the identification and interpretation of functional elements like promoters or enhancers. In evolutionary analyses, unmasked repeats can be misconstrued as conserved regions, affecting the delineation of homologous sequences and badly influent our understanding of species relationships.
 
+- **WindowMasker**
+Pros:
+Efficient at identifying low-complexity regions and masking them.
+Suitable for quickly identifying and masking repetitive elements.
+Cons:
+May lack the sensitivity to detect more complex repetitive structures.
+Limited functionality compared to comprehensive repeat analysis tools.
+
+- **DustMasker**
+Pros:
+Efficient at identifying and masking low-complexity regions.
+Quick and computationally less intensive.
+Cons:
+Primarily designed for identifying low-complexity sequences, may not capture more diverse repetitive elements.
+Limited in its ability to identify and mask interspersed repeats.
+
+- **Tandem Repeat Finder**
+Pros:
+Specialized in identifying tandem repeats, making it effective for certain genomic regions.
+Provides information on the pattern and organization of tandem repeats.
+Cons:
+Focuses solely on tandem repeats and may not capture interspersed repeats or complex repetitive structures.
+Sensitivity can be affected by parameter settings.
+
+- **RepeatModeler**
+Pros:
+De novo identification and modeling of repetitive elements in a genome.
+Integrates multiple algorithms for a more comprehensive analysis.
+Suitable for identifying novel repeats.
+Cons:
+Computationally more intensive compared to simple masking tools.
+Requires more computational resources for de novo repeat identification.
+
+- **RepeatMasker**
+Pros:
+Integrates RepeatModeler's repeat libraries for masking.
+Provides detailed reports on identified repeats and their locations.
+Customizable to include user-defined repeat libraries.
+Cons:
+Can be resource-intensive for large genomes.
+
+
+In terms of algorithmic relationships, RepeatModeler often uses de novo algorithms for repeat identification, and RepeatMasker utilizes the generated repeat libraries for masking. Windowmasker and dustmasker are the easiest tools, while others arre more comlex and includes more algorithms, which works together (based on windowmasker or dust alg-s too). //maybe, actually i'm not sure, as i understood//
