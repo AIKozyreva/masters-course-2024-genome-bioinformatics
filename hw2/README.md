@@ -195,25 +195,39 @@ Parameters: 2 7 7 80 10 50 500
 - _'<database_name>-rmod.log' - summarized log of the run_
 
 ```
-Sequ
+.....
 ```
 
 #### RepeatMasker
 
+- _'RepeatMasker.fa.masked'-ordinary fasta masked sequences_
 
+- _'RepeatMasker.fa.tbl'-main summary file_
+```
+file name: NC_086226.1.fa
+sequences:           972
+total length:   37852161 bp  (37839288 bp excl N/X-runs)
+GC level:         39.90 %
+bases masked:    2933633 bp ( 7.75 %)
+```
+![RepeatMasker.fa.tbl - output_example](https://github.com/AIKozyreva/masters-course-2024-genome-bioinformatics/blob/main/hw2/repmask_out_tbl_example.jpg?raw=true)
 
-![RepeatMasker_output_example](https://github.com/AIKozyreva/masters-course-2024-genome-bioinformatics/blob/main/hw2/repeatmasker_out_example.jpg?raw=true)
+- _'RepeatMasker.out'_
+![RepeatMasker.out - output_example](https://github.com/AIKozyreva/masters-course-2024-genome-bioinformatics/blob/main/hw2/repeatmasker_out_example.jpg?raw=true)
 
+- _'RepeatMasker.ori.out' - file with coord, gene and pattern of repeat_
+```
+23 26.01 1.54 0.00 lcl|NC_086226.1_gene_1      1633      1697    (619) +               (ATA)n   Simple_repeat       1      66     (0)
+15 13.16 0.00 5.71 lcl|NC_086226.1_gene_10       396       432   (6024) +              (TTTG)n   Simple_repeat       1      35     (0)
+```
 #### Table with output's fields comparision
  
 | Tool/Fields |  Window Masker  | Tandem Repeats Finder |   dust masker   |     Repeat Modeler    |  Repeat Masker  |
 | :---------- | :-------------- | :-------------------- | :-------------- | :-------------------- | :-------------- |
 |    Aim      | repeats masking |    repeats masking    | repeats masking |   repeats identif-n   | repeats id-n + masking |
-| input_frmt  |      Fasta      |         Fasta         |      Fasta      |    Fasta + database   |     23.99     |
-| output_frmt |        txt      |       .dat = text     |  Fasta & other  | .fasta + .str + .log  |     23.99     |
-| columns     | coord of masked groups/gene | pattern, sequence, coord of repeat | coord of masked groups/gene | db + repeats_seq-s |     23.99     |
-
-
+| input_frmt  |      Fasta      |         Fasta         |      Fasta      |    Fasta + database   | Fasta      |
+| output_frmt |        txt      |       .dat = text     |  Fasta & other  | .fasta + .str + .log  | fa.masked+ori.out+.tbl+.out |
+| columns     | coord of masked groups/gene | pattern, sequence, coord of repeat | coord of masked groups/gene | db + repeats_seq-s | pattern, type, sequence, coord, stats of repeat |
 
 
 ### Step 5. Discussion
