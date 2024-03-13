@@ -202,11 +202,13 @@ Sequ
 
 
 
+![RepeatMasker_output_example](https://github.com/AIKozyreva/masters-course-2024-genome-bioinformatics/blob/main/hw2/repeatmasker_out_example.jpg?raw=true)
+
 #### Table with output's fields comparision
  
 | Tool/Fields |  Window Masker  | Tandem Repeats Finder |   dust masker   |     Repeat Modeler    |  Repeat Masker  |
 | :---------- | :-------------- | :-------------------- | :-------------- | :-------------------- | :-------------- |
-|    Aim      | repeats masking |    repeats masking    | repeats masking |   repeats identif-n   | repeats masking |
+|    Aim      | repeats masking |    repeats masking    | repeats masking |   repeats identif-n   | repeats id-n + masking |
 | input_frmt  |      Fasta      |         Fasta         |      Fasta      |    Fasta + database   |     23.99     |
 | output_frmt |        txt      |       .dat = text     |  Fasta & other  | .fasta + .str + .log  |     23.99     |
 | columns     | coord of masked groups/gene | pattern, sequence, coord of repeat | coord of masked groups/gene | db + repeats_seq-s |     23.99     |
