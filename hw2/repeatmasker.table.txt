@@ -1,0 +1,59 @@
+==================================================
+file name: NC_086226.1.fa           
+sequences:           972
+total length:   37852161 bp  (37839288 bp excl N/X-runs)
+GC level:         39.90 %
+bases masked:    2933633 bp ( 7.75 %)
+==================================================
+               number of      length   percentage
+               elements*    occupied  of sequence
+--------------------------------------------------
+Retroelements         5675      2366477 bp    6.25 %
+   SINEs:              148        16777 bp    0.04 %
+   Penelope:             0            0 bp    0.00 %
+   LINEs:             4172      1648935 bp    4.36 %
+    CRE/SLACS            0            0 bp    0.00 %
+     L2/CR1/Rex       4170      1648618 bp    4.36 %
+     R1/LOA/Jockey       0            0 bp    0.00 %
+     R2/R4/NeSL          0            0 bp    0.00 %
+     RTE/Bov-B           0            0 bp    0.00 %
+     L1/CIN4             2          317 bp    0.00 %
+   LTR elements:      1355       700765 bp    1.85 %
+     BEL/Pao             0            0 bp    0.00 %
+     Ty1/Copia           0            0 bp    0.00 %
+     Gypsy/DIRS1         2          222 bp    0.00 %
+       Retroviral     1352       700244 bp    1.85 %
+
+DNA transposons         84        11915 bp    0.03 %
+   hobo-Activator       14         1719 bp    0.00 %
+   Tc1-IS630-Pogo        4          601 bp    0.00 %
+   En-Spm                0            0 bp    0.00 %
+   MULE-MuDR             0            0 bp    0.00 %
+   PiggyBac              0            0 bp    0.00 %
+   Tourist/Harbinger    11         1817 bp    0.00 %
+   Other (Mirage,        0            0 bp    0.00 %
+    P-element, Transib)
+
+Rolling-circles          0            0 bp    0.00 %
+
+Unclassified:           26         4938 bp    0.01 %
+
+Total interspersed repeats:     2383330 bp    6.30 %
+
+
+Small RNA:              17         2179 bp    0.01 %
+
+Satellites:             10         1814 bp    0.00 %
+Simple repeats:       8977       469022 bp    1.24 %
+Low complexity:       1451        78737 bp    0.21 %
+==================================================
+
+* most repeats fragmented by insertions or deletions
+  have been counted as one element
+                                                      
+
+The query species was assumed to be Birds         
+RepeatMasker version 4.1.5 , quick mode
+                                          
+run with rmblastn version 2.14.1+
+FamDB: CONS-Dfam_3.7
