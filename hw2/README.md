@@ -14,24 +14,20 @@ conda install python=3.8
 ### Step 2. Installing Tools
 #### WindowMasker and DUST
 WindowMasker and DUST are part of the NCBI toolkit. 
-Команда _conda install -c bioconda ncbi-tools-bin_ - don't work because of
+Команда _conda install -c bioconda ncbi-tools-bin_ - **don't work because** of
 ```
 Solving environment: failed
 PackagesNotFoundError: The following packages are not available from current channels:
   - ncbi-tools-bin
-Current channels:
-  - https://conda.anaconda.org/bioconda
-  - https://conda.anaconda.org/conda-forge
-  - defaults
 ```
 Итак, мы выяснили спустя 1.5 часа страданий, что инструкция просто старая, а пакета такого в conda не существует, и с похожим названием тоже не существует, 
 найти его, может быть, получится как часть пакета NCBI c++ toolkit, с сайта: https://www.ncbi.nlm.nih.gov/IEB/ToolBox/CPP_DOC/lxr/source/src/app/winmasker/README
 
-Другой способ установить - это пойти в Google Colab или на локальную машину и установить через: (на сервере нужны права администратора, которых нет)
+Другой способ установить - это пойти в Google Colab или на локальную машину: (на сервере нужны права администратора, которых нет)
 ```
 !sudo apt install ncbi-tools-bin
 ```
-Но в колабе он работать тоже не будет, потому что после успешной установки вызов команды ncbi-tools-bin приведёт к следующему:
+Но в колабе **он работать тоже не будет**, потому что после успешной установки вызов команды ncbi-tools-bin приведёт к следующему:
 ```
 !sudo apt install ncbi-tools-bin
 !install ncbi-tools-bin
@@ -58,7 +54,7 @@ _windowmasker [-h] [-help] [-xmlhelp] [-ustat unit_counts]
 conda install blast=2.14.1
 dustmasker -h                                                                                                                          
 _dustmasker [-h] [-help] [-xmlhelp] [-in input_file_name]                                                                                                               
-    [-out output_file_name] [-window window_size] [-level level]                                                                                                         
+    [-out output_file_name] [-window window_size] [-level level]                                                                                                 
     [-linker linker] [-infmt input_format] [-outfmt output_format]                                                                                                       
     [-parse_seqids] [-hard_masking] [-version-full] [-version-full-xml]                                                                                                  
     [-version-full-json] _                                                                                                                                                                                 
@@ -80,7 +76,7 @@ _RepeatMasker [-options] <seqfiles(s) in fasta format>_
 RepeatModeler -h
 _RepeatModeler [-options] -database <XDF Database>_
 ```
-FINALLY!!!!!!!!!
+_**FINALLY!!!!!!!!!**_
 
 ### Step 3. Running Repeats Masking Tools
 
@@ -145,14 +141,75 @@ For the second command i have got the better result: more places were maskered a
 
 ### Step 4. Interpretation of Outputs
 
-#### Table with output's fields comparision
+#### dustmasker
+- _'fasta' - genome sequences with masked subseq-s_
+- _'interval' - genes and all masked groups in them. only by coordinates_
+- _'maskinfo_asn1_text' - list of masked groups with their iDs, start end coordinates in bp_
+```
+>lcl|NC_086226.1_gene_1 [gene=LOC134431993] [db_xref=GeneID:134431993] [location=complement(14..2329)] [gbkey=Gene]
+266 - 272
+509 - 516
+591 - 599
+```
+You can create a sctipt which will count the masked groups for each gene and their summary, but there is no information about groups type. 
 
-| Tool/Fields | Window Masker | Tandem Repeats Finder | dust masker | Repeat Modeler | Repeat Masker |
-| :---------- | :------------ | :-------------------- | :---------- | :------------- | :------------ |
-|    Aim      | repeats masking |  repeats masking    | repeats masking | repeats identif-n | repeats masking |
-|      1      |   True23.99   |     Codecademy Tee    |     False   |      23.99     |     23.99     |
-|      2      |  False19.99   |     Codecademy Hoodie |     False   |      23.99     |     23.99     |
-|      3      |  False42.99   |     Item              |    In Stock |      23.99     |     23.99     |
+```
+awk 'BEGIN { gene_count = 0; total_count = 0; } /^>/ { if (gene_count > 0) { print gene_count; gene_count = 0; } print; next } { gene_count++; total_count++; } END { print gene_count; print "General amount of masked groups is", total_count, "for", NR, "genes"; }' /mnt/projects/users/aalayeva/genomics/repeats/dustmasker_result_1303.txt > /mnt/projects/users/aalayeva/genomics/repeats/out_sum_dustmasker
+
+tail -n 3  /mnt/projects/users/aalayeva/genomics/repeats/out_sum_dustmasker
+```
+**General amount of masked groups is 53260 for 54232 genes**
+
+#### windowmasker
+- '.counts' is the output of WindowMasker Stage 1 processing. It also serves as input for Stage 2 processing. The first line of the file contains one integer number which is the unit size. Then come the lines containing counts for the units which appeared more than T_low times in the genome (and its reverse complement). These are ordered by the unit numerical value.
+- '-outfmt interval' the output of stage2 WindowMasker is Interval format. The file is consisting of blocks of information for each input sequence in the input FASTA order.  Each block starts with the FASTA title of the seq followed by the description of masked intervals, one interval per line. The intervals do not overlap and are sorted by their start position. (NOTE: the positions are numbered starting at 0.)
+
+- _'windowMasker_genome.counts' - list of counts for the units which appeared more than T_low times in the genome_
+```
+##pct: 500 100
+12
+0 68
+```
+- _'windowmasker_results.txt' - genome sequences with masked subseq-s_
+```
+>lcl|NC_086226.1_gene_3
+acttgttttaaaattctacTGTAAGCGTTTATggttcactttttttttctttgcagcacc
+cgtgacttttttttccctctaaaTCGGGAGTAAATATAGCTGAGTAAAATTAccttgatt
+ttcttccttcttttttaactgaattgtttttattaaaaatcctaTTTGAATATGTAGAAA
+```
+
+#### Tandem Repeats Finder (TRF)
+
+_'.dat' - The summary table includes the following information the pattern of repeat and the whole masked subsequence in this point (coordinates in the begining) of this gene_
+
+```
+Sequence: lcl|NC_086226.1_gene_8 
+Parameters: 2 7 7 80 10 50 500
+1406 1451 25 1.9 25 86 8 69 58 4 4 32 1.37 ATAAATTGATACAATATAAAATAAC ATAAATTGTAAATATAAAATAACATAAATTGATACAATATATAATA
+2081 2133 6 9.3 6 73 19 51 52 0 47 0 1.00 AAAGGG AAAGGGGAAGGGAAAGGAAAGGGAAGGAAAGGGAAAAGGAAAAGGGAAGGGAA
+```
+#### RepeatModeler
+
+- _'families.fa' - Consensus sequences_
+- _'<database_name>-families.stk' - Seed alignments_
+- _'<database_name>-rmod.log' - summarized log of the run_
+
+```
+Sequ
+```
+
+#### RepeatMasker
+
+
+
+#### Table with output's fields comparision
+ 
+| Tool/Fields |  Window Masker  | Tandem Repeats Finder |   dust masker   |     Repeat Modeler    |  Repeat Masker  |
+| :---------- | :-------------- | :-------------------- | :-------------- | :-------------------- | :-------------- |
+|    Aim      | repeats masking |    repeats masking    | repeats masking |   repeats identif-n   | repeats masking |
+| input_frmt  |      Fasta      |         Fasta         |      Fasta      |    Fasta + database   |     23.99     |
+| output_frmt |        txt      |       .dat = text     |  Fasta & other  | .fasta + .str + .log  |     23.99     |
+| columns     | coord of masked groups/gene | pattern, sequence, coord of repeat | coord of masked groups/gene | db + repeats_seq-s |     23.99     |
 
 
 
