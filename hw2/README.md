@@ -148,8 +148,8 @@ For the second command i have got the better result: more places were maskered a
 #### Table with output's fields comparision
 
 | Tool/Fields | Window Masker | Tandem Repeats Finder | dust masker | Repeat Modeler | Repeat Masker |
-| :---------- | :-----------: | :-------------------- | :---------- | :------------- | :------------ |
-|    Aim      |   True23.99   |     SQL Hat           |     True    |      23.99     |     23.99     |
+| :---------- | :------------ | :-------------------- | :---------- | :------------- | :------------ |
+|    Aim      | repeats masking |  repeats masking    | repeats masking | repeats identif-n | repeats masking |
 |      1      |   True23.99   |     Codecademy Tee    |     False   |      23.99     |     23.99     |
 |      2      |  False19.99   |     Codecademy Hoodie |     False   |      23.99     |     23.99     |
 |      3      |  False42.99   |     Item              |    In Stock |      23.99     |     23.99     |
@@ -159,5 +159,5 @@ For the second command i have got the better result: more places were maskered a
 
 ### Step 5. Discussion
 
-
+Repeats masking is a crucial step in genome analysis pipelines due to the huge presence of repetitive elements within eukaryotic genomes. These repeats, such as transposons and retrotransposons or ShortTandemRep, can significantly compromise the accuracy of downstream analyses because failure to account for repetitive elements can lead to the algorithms false identification of multiple gene's copies or merge distinct genes due to shared repetitive sequences. This inaccuracy extends to regulatory regions, where unmasked repeats may corrupt the identification and interpretation of functional elements like promoters or enhancers. In evolutionary analyses, unmasked repeats can be misconstrued as conserved regions, affecting the delineation of homologous sequences and badly influent our understanding of species relationships.
 
