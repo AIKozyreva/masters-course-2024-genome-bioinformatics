@@ -129,7 +129,10 @@ Info: https://tandem.bu.edu/trf/definitions
 ```
 trf /mnt/projects/users/aalayeva/genomics/raw/NC_086226.1.fasta 2 7 7 80 10 50 500 -d -h > /mnt/projects/users/aalayeva/genomics/repeats/trf_results.txt
 ```
-Output files are: trf_results.txt; NC_086226.1.fasta.2.7.7.80.10.50.500.dat   
+Output files are: trf_results.txt; NC_086226.1.fasta.2.7.7.80.10.50.500.dat ; and also can be a lot of .html (if there was no -h parametr ib command). 
+Summary .html can looks like this one and it's the same information as .dat file consists of, but in sum.html each link connects with other smaller .html, where you will find information about detected repeats in one or another sequnce (contig, chromosome or something other)
+
+![TFR-html-output](https://github.com/AIKozyreva/masters-course-2024-genome-bioinformatics/blob/main/hw2/TRF_html_out_example.jpg?raw=true)
 
 #### RepeatModeler and RepeatMasker
 
@@ -155,11 +158,14 @@ Repeat Masker - is a program that screens DNA sequences for interspersed repeats
 Info: https://www.repeatmasker.org/webrepeatmaskerhelp.html 
 ```
 1) RepeatMasker -lib /mnt/projects/users/aalayeva/genomics/repeats/RM_2323907.TueMar121008052024/consensi.fa -pa 4 -s -xsmall -e ncbi /mnt/projects/users/aalayeva/genomics/raw/NC_086226.1.fa
+
 2) RepeatMasker -species Birds -pa 4 -q -xsmall -e ncbi /mnt/projects/users/aalayeva/genomics/raw/NC_086226.1.fa
 ```
 Output files are: for variant 1) repeatmasker.table(1).txt, for var 2) repeatmasker.table.txt
 
-For the second command i have got the better result: more places were maskered and programm identified more types of masked sequences. Probably, the reason of this were the termination of Repeat Modeler database building step. Or maybe the reason what in second variant Repeat Masker used default database, which includes information about many types of sequences of many Birds, while my custom database was based only on my one bird - Melospiza melodia - genome data.
+For the second command i have got the better result: despite on more places were maskered, programm identified more types of masked sequences -as i see that's more reliable than first variant, where programm masked more sequences about 10% (based on lib, got from Modeler round4), but all masked sequences were Unclassified or Simple repeats, while with command with default db we can see a lot of differen types of maskered sequences.
+
+Probably, the reason of this were the termination of Repeat Modeler second step after round4. Or maybe the reason - is that in second variant Repeat Masker has used default database, which includes information about many types of sequences of many Birds, while my custom database was based only on my one bird - Melospiza melodia - genome data.
 
 ### Task 4. Interpretation of Outputs
 
@@ -180,7 +186,7 @@ awk 'BEGIN { gene_count = 0; total_count = 0; } /^>/ { if (gene_count > 0) { pri
 
 tail -n 3  /mnt/projects/users/aalayeva/genomics/repeats/out_sum_dustmasker
 ```
-**General amount of masked groups is 53260 for 54232 genes**
+**General amount of masked groups is 53260 for 54232 sequences**
 
 #### windowmasker
 - '.counts' is the output of WindowMasker Stage 1 processing. It also serves as input for Stage 2 processing. The first line of the file contains one integer number which is the unit size. Then come the lines containing counts for the units which appeared more than T_low times in the genome (and its reverse complement). These are ordered by the unit numerical value.
@@ -217,7 +223,28 @@ Parameters: 2 7 7 80 10 50 500
 - _'<database_name>-rmod.log' - summarized log of the run_
 
 ```
-.....
+RepeatModeler Round # 5
+========================
+Searching for Repeats
+ -- Sampling from the database...
+   - Gathering up to 270000000 bp
+   - Sequence extraction : 00:10:20 (hh:mm:ss) Elapsed Time
+ -- Running TRFMask on the sequence...
+   - TRFMask time 00:28:36 (hh:mm:ss) Elapsed Time
+ -- Masking repeats from the previous rounds...
+       118916 repeats masked totaling 59597810 bp(s).
+   - TE Masking time 00:14:16 (hh:mm:ss) Elapsed Time
+ -- Sample Stats:
+       Sample Size 270310507 bp
+       Num Contigs Represented = 187
+       Non ambiguous bp:
+             Initial: 270002066 bp
+             After Masking: 171227757 bp
+             Masked: 36.58 %
+ -- Input Database Coverage: 440479992 bp out of 1541245192 bp ( 28.58 % )
+Sampling Time: 00:53:30 (hh:mm:ss) Elapsed Time
+Running all-by-other comparisons...
+  - Total Comparisons = 23028291
 ```
 
 #### RepeatMasker
