@@ -38,6 +38,8 @@ conda install python=3.8
 WindowMasker and DUST are part of the NCBI toolkit. 
 Команда _conda install -c bioconda ncbi-tools-bin_ - **don't work because** of
 ```
+conda install -c bioconda ncbi-tools-bin
+____________________________________________________________________
 Solving environment: failed
 PackagesNotFoundError: The following packages are not available from current channels:
   - ncbi-tools-bin
@@ -53,6 +55,7 @@ PackagesNotFoundError: The following packages are not available from current cha
 ```
 !sudo apt install ncbi-tools-bin
 !install ncbi-tools-bin
+_______________________________________________________________________
 _/bin/bash: line 1: ncbi-tools-bin: command not found_
 ```
 **<Так в итоге рабочая схема установки на сервер WindowMasker>**__
@@ -66,6 +69,7 @@ cd ./windowmasker
 wget ftp://ftp.ncbi.nlm.nih.gov/pub/agarwala/windowmasker/windowmasker 
 chmod +x windowmasker
 ./windowmasker -h
+______________________________________________________________________________
 _windowmasker [-h] [-help] [-xmlhelp] [-ustat unit_counts]
     [-in input_file_name] [-out output_file_name] [-checkdup check_duplicates]
     [-fa_list input_is_a_list] [-mem available_memory] [-unit unit_length] _
@@ -74,7 +78,8 @@ _windowmasker [-h] [-help] [-xmlhelp] [-ustat unit_counts]
 **<Рабочая схема установки на сервер dustmasker>**__
 ```
 conda install blast=2.14.1
-dustmasker -h                                                                                                                          
+dustmasker -h
+_______________________________________________________________________
 _dustmasker [-h] [-help] [-xmlhelp] [-in input_file_name]                                                                                                               
     [-out output_file_name] [-window window_size] [-level level]                                                                                                 
     [-linker linker] [-infmt input_format] [-outfmt output_format]                                                                                                       
@@ -86,6 +91,7 @@ _dustmasker [-h] [-help] [-xmlhelp] [-in input_file_name]
 ```
 conda install -c bioconda trf
 trf -h
+___________________________________________
 _Please use: trf File Match Mismatch Delta PM PI Minscore MaxPeriod [options]_
 ```
 #### RepeatModeler and RepeatMasker
@@ -94,8 +100,10 @@ RepeatModeler and RepeatMasker can be installed together as they are often used 
 conda install -c bioconda rmblast
 conda install -c bioconda repeatmodeler repeatmasker
 RepeatMasker -h
-_RepeatMasker [-options] <seqfiles(s) in fasta format>_
 RepeatModeler -h
+_______________________________________________________
+_RepeatMasker [-options] <seqfiles(s) in fasta format>_
+_______________________________________________________
 _RepeatModeler [-options] -database <XDF Database>_
 ```
 _**FINALLY!!!!!!!!!**_
@@ -142,16 +150,11 @@ Info: https://www.repeatmasker.org/RepeatModeler/
 ```
 BuildDatabase -name vorobey_full_repeat_db -engine ncbi /mnt/projects/users/aalayeva/genomics/raw/GCF_035770615.1_bMelMel2.pri_genomic.fna
 RepeatModeler -database vorobey_full_repeat_db -threads 16 -LTRStruct
-_  <Using output directory = /mnt/projects/users/aalayeva/genomics/repeats/RM_2323907.TueMar121008052024
-  Search Engine = rmblast 2.14.1+
-  Threads = 16
-  Dependencies: TRF 4.09, RECON , RepeatScout 1.0.6, RepeatMasker 4.1.5
-  LTR Structural Analysis: Enabled (GenomeTools 1.6.4, LTR_Retriever, Ninja 0.97-cluster_only, MAFFT 7.520, CD-HIT 4.8.1 )
-  Random Number Seed: 1710238085
-  Database = /mnt/projects/users/aalayeva/genomics/repeats/vorobey_full_repeat_db .
-  - Sequences = 353
-  - Bases = 1541245192
-  - N50 = 82773674>_
+_____________________________________________________________________________
+_<Search Engine = rmblast 2.14.1+
+Dependencies: TRF 4.09, RECON , RepeatScout 1.0.6, RepeatMasker 4.1.5
+LTR Structural Analysis: Enabled (GenomeTools 1.6.4, LTR_Retriever, Ninja 0.97-cluster_only, MAFFT 7.520, CD-HIT 4.8.1 )
+Database = /mnt/projects/users/aalayeva/genomics/repeats/vorobey_full_repeat_db>_
 ```
 Repeat Masker - is a program that screens DNA sequences for interspersed repeats and low complexity DNA sequences. The output of the program is a detailed annotation of the repeats that are present in the query sequence as well as a modified version of the query sequence in which all the annotated repeats have been masked (default: replaced by Ns). There are two variants of command. Firsе one with custom database, made earlier by RepeatModeler, second one is with one of default databases, that was made for all birds.
 
@@ -261,7 +264,6 @@ bases masked:    2933633 bp ( 7.75 %)
 ```
 ![RepeatMasker.fa.tbl - output_example](https://github.com/AIKozyreva/masters-course-2024-genome-bioinformatics/blob/main/hw2/repmask_out_tbl_example.jpg?raw=true)
 
-- _'RepeatMasker.out'_
 ![RepeatMasker.out - output_example](https://github.com/AIKozyreva/masters-course-2024-genome-bioinformatics/blob/main/hw2/repeatmasker_out_example.jpg?raw=true)
 
 - _'RepeatMasker.ori.out' - file with coord, gene and pattern of repeat_
