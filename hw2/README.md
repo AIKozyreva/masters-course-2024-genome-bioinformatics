@@ -280,7 +280,14 @@ bases masked:    2933633 bp ( 7.75 %)
 | output_frmt |        txt      |       .dat = text     |  Fasta & other  | .fasta + .str + .log  | fa.masked+ori.out+.tbl+.out |
 | columns     | coord of masked groups/gene | pattern, sequence, coord of repeat | coord of masked groups/gene | db + repeats_seq-s | pattern, type, sequence, coord, stats of repeat |
 
-
+| Tool/Fields |  Window Masker  | Tandem Repeats Finder |   dust masker   |  Repeat Masker  |
+| :---------- | :-------------- | :------------------- | :-------------- | :-------------- |
+| Total bp    |    37852161     |       37852161       |    37852161     |    37852161     |
+| Masked bp   |     4926663     |         521458       |     1299929     |      3866474    |
+| Masked %    |     13.02%      |         1.38%        |     3.43%       |      10.21%     |
+| Mask  type  |    lowercase    |      N-masking       |     lowercase   |    lowercase    |
+| gap bp      |      12873      |         none         |       none      |       12873     |
+| GAP %       |      0.03%      |         none         |       none      |       0.03%     |
 ### Task 5. Discussion
 
 **Why we have to mask something?**
