@@ -1,0 +1,99 @@
+Executable copy of this code in located in root directory of this repository. This is the code for counting comarative stats for several masking program.
+
+
+import sys
+def N_count (sequence):
+    n_count = sequence.count('N')
+    if n_count:
+      print ("Type: N-masking_", n_count, "_masked bp")
+      return "N-masking_", n_count
+
+def calculate_TRF_stats(fasta_file, tool_name):
+    with open(fasta_file, 'r') as f:
+        fasta_lines = f.readlines()
+    
+    # Concatenate sequences
+    sequence = ''.join(line.strip() for line in fasta_lines if not line.startswith('>'))
+
+    # Count total base pairs
+    total_bp = len(sequence)
+    
+    # Determine masking type and count masked base pairs
+    masking_type, masked_bp = N_count(sequence)
+    
+    # Calculate percentages
+    maskered_percent = (masked_bp / total_bp) * 100
+ 
+    # Print results
+    print("Tool:", tool_name)
+    print("Processed FASTA file:", fasta_file)
+    print("Masking type:", masking_type)
+    print("Total base pairs:", total_bp)
+    print("Masked base pairs:", masked_bp)
+    print("Masked percentage: {:.2f}%".format(maskered_percent))
+
+def Gap_finder (sequence):
+    gap_bp_count = sequence.count('N')
+    print ("Amount of gap bp", gap_bp_count, "_bp")
+    return gap_bp_count
+
+def count_masking(sequence):
+    uppercase_count = sum(1 for base in sequence if base.isupper())
+    lowercase_count = sum(1 for base in sequence if base.islower())
+    n_count = sequence.count('N')
+     
+    if uppercase_count > lowercase_count:
+      print ("Type: lowercase_masking", lowercase_count, "_masked bp")
+      return "lowercase-masking", lowercase_count
+    elif lowercase_count > uppercase_count:
+      print ("Type: uppercase-masking", uppercase_count, "_masked bp")
+      return "uppercase-masking", uppercase_count   
+
+
+def calculate_stats(fasta_file, tool_name):
+    with open(fasta_file, 'r') as f:
+        fasta_lines = f.readlines()
+    
+    # Concatenate sequences
+    sequence = ''.join(line.strip() for line in fasta_lines if not line.startswith('>'))
+
+
+    # Count total base pairs
+    total_bp = len(sequence)
+
+    # Count gap base pairs
+    gaps_bp = Gap_finder(sequence)
+    
+    # Determine masking type and count masked base pairs
+    masking_type, masked_bp = count_masking(sequence)
+    
+    # Calculate percentages
+    maskered_percent = (masked_bp / total_bp) * 100
+    gaps_percent = (gaps_bp / total_bp) * 100
+
+    # Print results
+    print("Tool:", tool_name)
+    print("Processed FASTA file:", fasta_file)
+    print("Masking type:", masking_type)
+    print("Total base pairs:", total_bp)
+    print("Masked base pairs:", masked_bp)
+    print("Masked gap pairs:", gaps_bp)
+    print("Masked percentage: {:.2f}%".format(maskered_percent))
+    print("Masked GAP percentage: {:.2f}%".format(gaps_percent))
+
+
+#Main_program1_for_RepeatMasker
+fasta_file_name = "/content/Repeat_maskerFA.fasta" 
+calculate_stats (fasta_file_name, "RepeatMasker")
+
+#Main_program2_for_TRF
+fasta_file_name = "/content/TRF.masked.fasta" 
+calculate_TRF_stats (fasta_file_name, "TandemRepeatFinder")
+
+#Main_program3_for_DUSTmasker
+fasta_file_name = "/content/dustmasker_result.fasta" 
+calculate_stats (fasta_file_name, "Dust_masker")
+
+#Main_program4_for_WindowMasker
+fasta_file_name = "/content/windowmasker_results.txt" 
+calculate_stats (fasta_file_name, "Window_masker")
