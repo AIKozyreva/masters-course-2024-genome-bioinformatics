@@ -315,7 +315,7 @@ Specialized in identifying tandem repeats, making it effective for certain genom
 Provides information on the pattern and organization of tandem repeats.
 Cons:
 Focuses solely on tandem repeats and may not capture interspersed repeats or complex repetitive structures.
-Sensitivity can be affected by parameter settings.
+Sensitivity can be affected by parameter settings. HARDMASKING - replacing repat sequences by NNNN make the process of detecting gaps in assembly more harder. Also hardmasking leads to the information losing.
 
 - **RepeatModeler**
 Pros:
