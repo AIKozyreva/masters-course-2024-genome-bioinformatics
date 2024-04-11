@@ -34,19 +34,16 @@ _Result:_
 ```
 
 ### GeneMark:
-эту хрень невозможно установить из-за ключей, кто вообще написал всё на перле, а потом ещё и намутил с лицензиями господи прости 
-
+ господи прости я не могу, ну он не хочет
 _Installation:_
 ```
-
+////
 ```
-
 _Run GeneMark on the genome:_
-
 gms2.pl --seq <genome_file.fasta> --genome-type auto --output genemark_output.gff3
-
 _Result:_
 
+Predictions of genes are vital to validate against protein databases and transcriptomic alignments to ensure the accuracy and completeness of gene annotations. Comparing gene predictions with known protein sequences helps confirm the presence of coding regions and identify potential coding sequences missed during annotation. By aligning predicted genes with protein databases, researchers can assess whether predicted open reading frames correspond to known protein domains or motifs, providing confidence in gene structure and function assignments.
 
 ## Task 2: Homology-Based Annotation 
 Objective: Use Exonerate and MMSeqs2 to align proteins from a closely related species to the genome.
@@ -63,9 +60,16 @@ conda install -c bioconda exonerate
 _Align proteins to the genome:_
 ```
 exonerate --model protein2genome --showtargetgff True <protein_sequences.fasta> <genome_file.fasta> > exonerate_output.gff3
+exonerate --query ./GCF_000211545.4_ASM21154v6_protein.faa --target annot.fna --model protein2genome --showalignment TRUE --ryo ">%ti %tab-%tae\n%tas\n" > Myc_exonerate_out_pr2gen.txt
+
 ```
 _Result:_
 
+> Query: WP_011113318.1 UMP kinase [Mycoplasmoides gallisepticum]
+> Target: lcl|NC_023030.2 Mycoplasmoides gallisepticum chromosome, whole genome shotgun sequence
+> Model: protein2genome:local
+> Raw score: 1179
+> Query range: 0 -> 236
 
 
 ### MMSeqs2 for Proteins:
@@ -81,17 +85,21 @@ conda install -c bioconda mmseqs2
 
 _Creating a database for the protein sequences and the genome:_
 ```
-mmseqs createdb <protein_sequences.fasta> proteinsDB
-mmseqs createdb <genome_file.fasta> genomeDB
-mmseqs search proteinsDB genomeDB resultDB tmp
+mmseqs createdb ./annot.fna queryDB
+mmseqs createdb ./GCF_000211545.4_ASM21154v6_protein.faa targetDB
 ```
 
 _Running the search:_
 ```
+mmseqs search proteinsDB genomeDB resultDB tmp
 mmseqs convertalis proteinsDB genomeDB resultDB result.m8
+head -n 10 resultDB.m8 
 ```
+![image](https://github.com/AIKozyreva/masters-course-2024-genome-bioinformatics/assets/74992091/57b3020a-6ccd-4aab-9423-f77d59ba5cde)
 
-Include a discussion on the significance of the protein alignments in gene annotation.
+
+By aligning annotated proteins with well-characterized ones, researchers can verify if annotations accurately represent functional domains, motifs, or features. This process helps in identifying potential errors or inaccuracies in the annotation, such as mislabeled domains or missed functional regions.
+Moreover, protein alignment aids in detecting evolutionary relationships, highlighting conserved regions across species and indicating potential functional importance. Quality assessment through alignment also enables the identification of potential sequence errors, such as frameshifts or sequencing artifacts, which could affect downstream analyses. 
 
 ## Task 3: RNA-seq Mapping
 Objective: Map RNA-seq data to the genome to provide transcript evidence for gene annotation.
@@ -100,22 +108,30 @@ Objective: Map RNA-seq data to the genome to provide transcript evidence for gen
 for mapping next-generation sequencing reads:
 _Installation_
 ```
-
+conda create -n hisat2
+conda activate hisat2
 conda install -c bioconda hisat2
 ```
 
 _Build an index for your genome:_
 ```
 hisat2-build <genome_file.fasta> genome_index
-
+hisat2-build /mnt/projects/users/aalayeva/ref_human_38/GRch38.p14.genome.fa hisat2_GRCh38_INDEX
 ```
 _Mapping RNA-seq reads to the genome:_
 ```
 hisat2 -x genome_index -U <reads_file.fastq> -S mapped_reads.sam
 hisat2 --fast --summary-file ./SUM.txt --reorder --qc-filter --add-chrname -k 1 -x ./index/hisat2_GRCh38_INDEX -U /mnt/projects/users/aalayeva/smallRNA/trim_10scamt.fastq -S ./align_hisat2.sam
 ```
+Now we have to convert large .sam into binary .bam and sort it by cooordinates:
+```
+samtools view -bS align_hisat2.sam -o align_hisat2.bam
+samtools sort align_hisat2.bam -o sorted_hisat2.bam
+```
 
-Discuss how RNA-seq evidence supports gene annotation.
+Transcriptomic alignments further validate gene predictions by aligning predicted transcripts with experimental RNA sequencing data, verifying their expression and splicing patterns. This comparison ensures that predicted genes accurately represent transcriptional activity under different conditions and developmental stages. Moreover, transcriptomic alignments help detect alternative splicing events or untranslated regions missed during gene prediction, enhancing the completeness of gene annotations.
+
+Overall, cross-referencing gene predictions with protein databases and transcriptomic alignments is essential for refining gene annotations, improving their accuracy, and enhancing our understanding of gene structure, function, and regulation.
 
 ## Task 4: Comparing Annotations with RefSeq GFF.
 **Tools: BEDtools, python, seqkit, bioawk**
@@ -148,6 +164,8 @@ The report should include the command used for intersecting GFF files.
 A summary of the intersection analysis:
 The number of exact matches, partial overlaps, and unique annotations.
 Discussion on the significance of these results for the quality of your annotation.
+
+
 Additional Notes:
 For detailed instructions and examples on how to perform these tasks, see Genes annotation part 1 colab. This Colab notebook provides step-by-step guidance on handling GFF files, executing intersection operations, and analyzing the results effectively. Make sure to adapt the instructions from the Colab to fit the specific details of your assignment, such as file paths and organism names.
 
