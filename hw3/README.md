@@ -155,22 +155,24 @@ Intersecting GFF Files:
 Use Bedtools to find overlaps between your GFF file and the RefSeq GFF file.
 This step will help identify matching annotations, partial overlaps, and unique annotations in both files.
 
-bedtools intersect -a predicted_genes.gff3 -b refseq_genes.gff3 -wa -wb > intersection_results.txt
+```
+bedtools intersect -a predicted_genes.bed -b refseq_genes.bed -wa -wb > intersection_results.txt
+grep "NODE" intersection_results.txt | wc -l
+```
+_Analysis:_
 
-Analysis:
-Open the resulting intersection_results.txt file.
-Analyze the intersections to evaluate the coverage and accuracy of your annotations compared to RefSeq.
-Identify and document cases of exact match, partial overlap, and unique annotations in your report.
+| Сomand    | Count | Result |
+| -------- | ------- |------- |
+| grep -o -e 'NODE' -e 'mp' intersect.txt | wc -l | 28785    |
+| grep -o 'NODE' Lact_output_annot.bed | wc -l | 6079    |
+| grep 'mp' output_annot.bed | wc -l | 33496    |
+
+I compared two mine annotatio of different organisms of the same clade, and we can see that amount of intersection sequences quite a lot, like more than a half. 
 
 Deliverables:
 The report should include the command used for intersecting GFF files.
 A summary of the intersection analysis:
 The number of exact matches, partial overlaps, and unique annotations.
-Discussion on the significance of these results for the quality of your annotation.
-
-
-Additional Notes:
-For detailed instructions and examples on how to perform these tasks, see Genes annotation part 1 colab. This Colab notebook provides step-by-step guidance on handling GFF files, executing intersection operations, and analyzing the results effectively. Make sure to adapt the instructions from the Colab to fit the specific details of your assignment, such as file paths and organism names.
 
 Note to remember:
 
@@ -182,8 +184,3 @@ Expected files in hw3 folder:
 README.md
 Predicted gene files (*.gff3)
 Alignment and mapping results .bam
-
-Report file (README.md) should include:
-Conda commands used for environment setup and tool installations.
-Commands used for gene prediction, protein alignment, RNA-seq mapping, and comparison with RefSeq proteins.
-Summary and analysis of each task's results.
