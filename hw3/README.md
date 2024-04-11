@@ -34,10 +34,16 @@ _Result:_
 ```
 
 ### GeneMark:
- господи прости я не могу, ну он не хочет
+ господи прости какая же это феерия с установкой
 _Installation:_
 ```
-////
+wget http://topaz.gatech.edu/GeneMark/tmp/GMtool_HZzc0/gmes_linux_64.tar.gz
+wget http://topaz.gatech.edu/GeneMark/tmp/GMtool_HZzc0/gm_key_64.gz
+gunzip -d
+cp gm_key_64 ~/.gm_key
+tar -xvf gmes_linux_64.tar
+perl_path="$(which perl)"
+perl change_path_in_perl_scripts.pl "$perl_path"
 ```
 _Run GeneMark on the genome:_
 gms2.pl --seq <genome_file.fasta> --genome-type auto --output genemark_output.gff3
