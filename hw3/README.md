@@ -24,15 +24,22 @@ conda install -c bioconda augustus
 
 _Run AUGUSTUS on the provided genome:_
 ```
-augustus --species=chicken  > 
+augustus --species=chicken --gff3=on --progress=true /mnt/projects/users/aalayeva/genomics/raw/NC_086226.1.fasta > ./genomics/augustus_output.gff3
 ```
 _Result:_
-
-
+```
+(base) aalayeva@aglab1:~/genomics$ head -n 10 augustus_output.gff3 
+> ##gff-version 3
+> #This output was generated with AUGUSTUS (version 3.3.3).
+```
 
 ### GeneMark:
-
 эту хрень невозможно установить из-за ключей, кто вообще написал всё на перле, а потом ещё и намутил с лицензиями господи прости 
+
+_Installation:_
+```
+
+```
 
 _Run GeneMark on the genome:_
 
@@ -63,10 +70,12 @@ _Result:_
 
 ### MMSeqs2 for Proteins:
 
-![[https://github.com/AIKozyreva/masters-course-2024-genome-bioinformatics/blob/main/hw3/%D0%91%D0%B5%D0%B7%D1%8B%D0%BC%D1%8F%D0%BD%D0%BD%D1%8B%D0%B9.png]] 
+![ ..](https://github.com/AIKozyreva/masters-course-2024-genome-bioinformatics/blob/main/hw3/%D0%91%D0%B5%D0%B7%D1%8B%D0%BC%D1%8F%D0%BD%D0%BD%D1%8B%D0%B9.png) 
 
 _Installation:_
 ```
+conda create -n mmseqs2
+conda activate mmseqs2
 conda install -c bioconda mmseqs2
 ```
 
