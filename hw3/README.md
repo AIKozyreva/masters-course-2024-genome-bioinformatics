@@ -157,7 +157,7 @@ This step will help identify matching annotations, partial overlaps, and unique 
 
 ```
 bedtools intersect -a predicted_genes.bed -b refseq_genes.bed -wa -wb > intersection_results.txt
-grep "NODE" intersection_results.txt | wc -l
+grep -o -e 'NODE' -e 'mp' intersect.txt | wc -l 
 ```
 _Analysis:_
 
