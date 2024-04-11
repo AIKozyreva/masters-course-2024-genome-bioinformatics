@@ -173,7 +173,7 @@ _Analysis:_
 | grep -o 'NODE' Lact_output_annot.bed | wc -l | 6079    |
 | grep 'mp' output_annot.bed | wc -l | 33496    |
 
-I compared two mine annotatio of different organisms of the same clade, and we can see that amount of intersection sequences quite a lot, like more than a half. 
+I compared two mine annotations of different organisms of the same clade, and we can see that amount of intersection sequences is big, and we can be sure, that ther are records from both input in the intersect.txt.
 
 Deliverables:
 The report should include the command used for intersecting GFF files.
