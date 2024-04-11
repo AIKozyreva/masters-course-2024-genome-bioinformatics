@@ -42,7 +42,7 @@ _Installation:_
 _Run GeneMark on the genome:_
 gms2.pl --seq <genome_file.fasta> --genome-type auto --output genemark_output.gff3
 _Result:_
-
+_________________________________________________
 Predictions of genes are vital to validate against protein databases and transcriptomic alignments to ensure the accuracy and completeness of gene annotations. Comparing gene predictions with known protein sequences helps confirm the presence of coding regions and identify potential coding sequences missed during annotation. By aligning predicted genes with protein databases, researchers can assess whether predicted open reading frames correspond to known protein domains or motifs, providing confidence in gene structure and function assignments.
 
 ## Task 2: Homology-Based Annotation 
@@ -97,7 +97,10 @@ head -n 10 resultDB.m8
 ```
 ![image](https://github.com/AIKozyreva/masters-course-2024-genome-bioinformatics/assets/74992091/57b3020a-6ccd-4aab-9423-f77d59ba5cde)
 
-
+The file is formatted as a tab-separated list with 12 columns: (1,2) identifiers for query and target
+sequences/profiles, (3) sequence identity, (4) alignment length, (5) number of mismatches, (6) number of gap openings, (7-8, 9-10) domain start and end-position in query and in target, (11) E-value,
+and (12) bit score
+___________________________________________
 By aligning annotated proteins with well-characterized ones, researchers can verify if annotations accurately represent functional domains, motifs, or features. This process helps in identifying potential errors or inaccuracies in the annotation, such as mislabeled domains or missed functional regions.
 Moreover, protein alignment aids in detecting evolutionary relationships, highlighting conserved regions across species and indicating potential functional importance. Quality assessment through alignment also enables the identification of potential sequence errors, such as frameshifts or sequencing artifacts, which could affect downstream analyses. 
 
@@ -128,7 +131,7 @@ Now we have to convert large .sam into binary .bam and sort it by cooordinates:
 samtools view -bS align_hisat2.sam -o align_hisat2.bam
 samtools sort align_hisat2.bam -o sorted_hisat2.bam
 ```
-
+____________________________________________________________________________
 Transcriptomic alignments further validate gene predictions by aligning predicted transcripts with experimental RNA sequencing data, verifying their expression and splicing patterns. This comparison ensures that predicted genes accurately represent transcriptional activity under different conditions and developmental stages. Moreover, transcriptomic alignments help detect alternative splicing events or untranslated regions missed during gene prediction, enhancing the completeness of gene annotations.
 
 Overall, cross-referencing gene predictions with protein databases and transcriptomic alignments is essential for refining gene annotations, improving their accuracy, and enhancing our understanding of gene structure, function, and regulation.
